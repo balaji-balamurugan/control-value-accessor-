@@ -1,0 +1,80 @@
+<form [formGroup]="rendererForm">
+  <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-4 gap-y-2">
+
+    <ng-container *ngFor="let fields of cusFieldData">
+
+      <ng-container [ngSwitch]="fields?.type">
+
+        <ng-container *ngSwitchCase="'inputText'">
+          <div class="col-span-2">
+            <mat-form-field class="fuse-mat-dense w-full" floatLabel="always">
+              <mat-label class="pl-1">{{fields?.title}}</mat-label>
+              <input matInput type="text" [formControlName]="fields?.id">
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'inputNumber'">
+          <div class="col-span-2">
+            <mat-form-field class="fuse-mat-dense w-full" floatLabel="always">
+              <mat-label class="pl-1">{{fields?.title}}</mat-label>
+              <input matInput type="number" [formControlName]="fields?.id">
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'singleSelect'">
+          <div class="col-span-2">
+            <mat-form-field class="fuse-mat-dense w-full" floatLabel="always">
+              <mat-label>{{fields?.title}}</mat-label>
+              <mat-select placeholder="select" [formControlName]="fields?.id" [compareWith]="compareWith"
+              >
+                <mat-option *ngFor="let option of fields?.options" [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'multiSelect'">
+          <div class="col-span-2">
+            <mat-form-field class="fuse-mat-dense w-full" floatLabel="always">
+              <mat-label>{{fields?.title}}</mat-label>
+              <mat-select [formControlName]="fields?.id" multiple [compareWith]="compareWith">
+                <mat-option *ngFor="let option of fields?.options" [value]="option">
+                  {{option?.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'image'">
+          <div class="col-span-4">
+            <!-- <single-image-upload [imgStyle]="'rect'" [imgName]="fields?.title" [formControlName]="fields?.id"
+            >
+            </single-image-upload> -->
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'boolean'">
+          <div class="col-span-2 ml-1">
+            <mat-checkbox color="primary" [formControlName]="fields?.id">
+              {{fields?.title}}
+            </mat-checkbox>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'lineBreak'">
+          <div class="col-span-2">
+            <mat-divider class="my-6"></mat-divider>
+          </div>
+        </ng-container>
+
+      </ng-container>
+
+    </ng-container>
+  </div>
+
+</form>
